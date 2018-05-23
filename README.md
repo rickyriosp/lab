@@ -13,3 +13,23 @@ My [UVa Online Judge](https://uva.onlinejudge.org/index.php) Solutions
 [10055 - Hashmat the Brave Warrior](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20100/10055.cpp)<br>
 [10071 - Back to High School Physics](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20100/10071.cpp)<br>
 [10114 - Loansome Car Buyer](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20101/10114.cpp)<br>
+[10300 - Ecological Premium](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20103/10300.cpp)
+[10550 - Combination Lock](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20105/10550.cpp)
+[10963 - The Swallowing Ground](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20109/10963.cpp)
+[11044 - Searching for Nessy](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20110/11044.cpp)
+[11172 - Relational Operator](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20111/11172.cpp)
+[11332 - Summing Digits](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20113/11332.cpp)
+[11364 - Parking](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20113/11364.cpp)
+[11498 - Division of Nlogonia](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20114/11498.cpp)
+[11547 - Automatic Answer](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20115/11547.cpp)
+[11559 - Event Planning](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20115/11559.cpp)
+[11727 - Cost Cutting](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20117/11727.cpp)
+[11764 - Jumping Mario](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20117/11764.cpp)
+[11799 - Horror Dash](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20117/11799.cpp)
+[11942 - Lumberjack Sequencing](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20119/11942.cpp)
+[12250 - Language Detection](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20122/12250.cpp)
+[12279 - Emoogle Balance](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20122/12279.cpp)
+[12289 - One-Two-Three](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20122/12289.cpp)
+[12372 - Packing for Holiday](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20123/12372.cpp)
+[12403 - Save Setu](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20124/12403.cpp)
+[12577 - Hajj-e-Akbar](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20125/12577.cpp)
