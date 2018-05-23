@@ -13,6 +13,7 @@ My [UVa Online Judge](https://uva.onlinejudge.org/index.php) Solutions
 [10055 - Hashmat the Brave Warrior](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20100/10055.cpp)<br>
 [10071 - Back to High School Physics](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20100/10071.cpp)<br>
 [10114 - Loansome Car Buyer](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20101/10114.cpp)<br>
+[10141 - Request for Proposal](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20101/10141%20-%20Request%20for%20Proposal.cpp)<br>
 [10300 - Ecological Premium](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20103/10300.cpp)<br>
 [10550 - Combination Lock](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20105/10550.cpp)<br>
 [10963 - The Swallowing Ground](https://github.com/nas7ybruises/uva-onlinejudge-solutions/blob/master/Contest%20Volumes/Volume%20109/10963.cpp)<br>
