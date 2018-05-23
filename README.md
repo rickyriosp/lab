@@ -1,5 +1,5 @@
 # UVa-onlinejudge-solutions
-My [UVa Online Judge](https://uva.onlinejudge.org/index.php) Solutions
+My [UVa Online Judge](https://uva.onlinejudge.org/index.php?option=com_onlinejudge&Itemid=15) Solutions
 
 ## Index
 ### Problem Set Volumes
