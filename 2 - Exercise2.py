@@ -17,3 +17,13 @@ for result in powerset([1, 2, 3]):
 
 results = list(powerset([1, 2, 3]))
 print(results)
+
+# Other solution
+#import itertools
+#
+#def powerset(L):
+#  pset = set()
+#  for n in xrange(len(L) + 1):
+#    for sset in itertools.combinations(L, n):
+#      pset.add(sset)
+#  return pset
