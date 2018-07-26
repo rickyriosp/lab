@@ -96,9 +96,9 @@ def testMaxVal(foods, maxUnits, algorithm, printItems = True):
         for item in taken:
             print('   ', item)
             
-#for numItems in (5, 10, 15, 20, 25, 30, 35, 40, 45, 50):
-#    items = buildLargeMenu(numItems, 90, 250)
-#    testMaxVal(items, 750, maxVal, False)
+for numItems in (5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 1024):
+    items = buildLargeMenu(numItems, 90, 250)
+    testMaxVal(items, 750, fastMaxVal, False)
     
 #Change code to keep track of number of calls
 def countingFastMaxVal(toConsider, avail, memo = {}):
@@ -134,11 +134,11 @@ def countingFastMaxVal(toConsider, avail, memo = {}):
     memo[(len(toConsider), avail)] = result
     return result
     
-for numItems in (2, 4, 8, 16, 32, 64, 128, 256, 512, 1024):
-    numCalls = 0
-    items = buildLargeMenu(numItems, 90, 250)
-    testMaxVal(items, 750, countingFastMaxVal, False)
-    print('Number of calls =', numCalls)
+#for numItems in (2, 4, 8, 16, 32, 64, 128, 256, 512, 1024):
+#    numCalls = 0
+#    items = buildLargeMenu(numItems, 90, 250)
+#    testMaxVal(items, 750, countingFastMaxVal, False)
+#    print('Number of calls =', numCalls)
 
 
 
