@@ -104,8 +104,7 @@ def DFS(graph, start, end, path, shortest, toPrint = False):
     for node in graph.childrenOf(start):
         if node not in path: #avoid cycles
             if shortest == None or len(path) < len(shortest):
-                newPath = DFS(graph, node, end, path, shortest,
-                              toPrint)
+                newPath = DFS(graph, node, end, path, shortest, toPrint)
                 if newPath != None:
                     shortest = newPath
         elif toPrint:
@@ -128,7 +127,7 @@ def testSP(source, destination):
         print('There is no path from', source, 'to', destination)
 
 #testSP('Chicago', 'Boston')
-testSP('Boston', 'Phoenix')
+#testSP('Boston', 'Phoenix')
 
 def BFS(graph, start, end, toPrint = False):
     """Assumes graph is a Digraph; start and end are nodes
