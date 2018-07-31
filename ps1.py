@@ -97,8 +97,22 @@ def brute_force_cow_transport(cows,limit=10):
     trips
     """
     # TODO: Your code here
-    pass
-
+    cowsCopy = cows.copy()
+    result = []
+    minTrips = len(cowsCopy)
+    for item in (get_partitions(cowsCopy)):
+        take = True
+        for trip in item:
+            weight = 0
+            for cow in trip:
+                weight += cowsCopy[cow] 
+            if weight > limit:
+                take = False
+                break
+        if take and len(item) <= minTrips:
+            result = item
+            minTrips = len(item)
+    return result
         
 # Problem 3
 def compare_cow_transport_algorithms():
@@ -132,7 +146,7 @@ cows = load_cows("ps1_cow_data.txt")
 limit=100
 print(cows)
 
-print(greedy_cow_transport(cows, limit))
-#print(brute_force_cow_transport(cows, limit))
+#print(greedy_cow_transport(cows, limit))
+print(brute_force_cow_transport({'Daisy': 50, 'Buttercup': 72, 'Betsy': 65}, 75))
 
 
