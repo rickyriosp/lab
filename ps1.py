@@ -154,9 +154,8 @@ cows = load_cows("ps1_cow_data.txt")
 #limit=100
 #print(cows)
 #
-##print(greedy_cow_transport(cows, limit))
+#print(greedy_cow_transport(cows, limit))
 #print(brute_force_cow_transport({'Daisy': 50, 'Buttercup': 72, 'Betsy': 65}, 75))
-
 compare_cow_transport_algorithms()
 
 
