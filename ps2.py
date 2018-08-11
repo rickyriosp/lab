@@ -267,17 +267,17 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
     """
     avg = 0
     for i in range(num_trials):
-        anim = ps2_visualize.RobotVisualization(num_robots, width, height)
+        #anim = ps2_visualize.RobotVisualization(num_robots, width, height)
         room = RectangularRoom(width, height)
         tiles_needed = math.ceil(min_coverage * width * height)
         robots = [robot_type(room, speed) for i in range(num_robots)]
         while room.getNumCleanedTiles() < tiles_needed:  
-            anim.update(room, robots)
+            #anim.update(room, robots)
             for robot in robots:
                 robot.updatePositionAndClean()
             avg += 1
         room.__init__(width, height)
-        anim.done()
+        #anim.done()
     return round(avg/num_trials, 0)
 
 
@@ -356,13 +356,10 @@ def showPlot2(title, x_label, y_label):
 #
 # 1) Write a function call to showPlot1 that generates an appropriately-labeled
 #     plot.
-#
-#       (... your call here ...)
-#
+showPlot1('Time to Clean 80%', 'Num Robots', 'Time')
+
 
 #
 # 2) Write a function call to showPlot2 that generates an appropriately-labeled
 #     plot.
-#
-#       (... your call here ...)
-#
+showPlot2('Time to Clean Variably Shaped Rooms', 'Aspect Ratio (width/height)', 'Time')
