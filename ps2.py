@@ -267,18 +267,21 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
     """
     avg = 0
     for i in range(num_trials):
+        #anim = ps2_visualize.RobotVisualization(num_robots, width, height)
         room = RectangularRoom(width, height)
         tiles_needed = math.ceil(min_coverage * width * height)
         robots = [robot_type(room, speed) for i in range(num_robots)]
-        while room.getNumCleanedTiles() < tiles_needed:            
+        while room.getNumCleanedTiles() < tiles_needed:  
+            #anim.update(room, robots)
             for robot in robots:
                 robot.updatePositionAndClean()
             avg += 1
         room.__init__(width, height)
+        #anim.done()
     return round(avg/num_trials, 0)
 
 # Uncomment this line to see how much your simulation takes on average
-print(runSimulation(1, 1.0, 10, 12, 0.96, 30, StandardRobot))
+print(runSimulation(3, 1.0, 10, 10, 0.80, 2, StandardRobot))
 
 
 # === Problem 5
