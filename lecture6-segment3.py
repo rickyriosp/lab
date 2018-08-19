@@ -212,8 +212,8 @@ def plotLocs(drunkKinds, numSteps, numTrials):
     pylab.ylabel('Steps North/South of Origin')
     pylab.legend(loc = 'upper left')
 
-random.seed(0)
-plotLocs((UsualDrunk, ColdDrunk), 10000, 1000)
+#random.seed(0)
+#plotLocs((UsualDrunk, ColdDrunk), 10000, 1000)
 
 class OddField(Field):
     def __init__(self, numHoles = 1000,
@@ -261,3 +261,63 @@ def traceWalk(fieldKinds, numSteps):
 
 #random.seed(0)
 #traceWalk((Field, OddField), 500)
+    
+#class UsualDrunk(Drunk):
+#    def takeStep(self):
+#        stepChoices =\
+#            [(0.0,1.0), (0.0,-1.0), (1.0, 0.0), (-1.0, 0.0)]
+#        return random.choice(stepChoices)
+#
+#class ColdDrunk(Drunk):
+#    def takeStep(self):
+#        stepChoices =\
+#            [(0.0,0.9), (0.0,-1.03), (1.03, 0.0), (-1.03, 0.0)]
+#        return random.choice(stepChoices)
+#
+#class EDrunk(Drunk):
+#    def takeStep(self):
+#        ang = 2 * math.pi * random.random()
+#        length = 0.5 + 0.5 * random.random()
+#        return (length * math.sin(ang), length * math.cos(ang))
+#
+#class PhotoDrunk(Drunk):
+#    def takeStep(self):
+#        stepChoices =\
+#                    [(0.0, 0.5),(0.0, -0.5),
+#                     (1.5, 0.0),(-1.5, 0.0)]
+#        return random.choice(stepChoices)
+#
+#class DDrunk(Drunk):
+#    def takeStep(self):
+#        stepChoices =\
+#                    [(0.85, 0.85), (-0.85, -0.85),
+#                     (-0.56, 0.56), (0.56, -0.56)] 
+#        return random.choice(stepChoices)
+#
+#def plotLocs(drunkKinds, numSteps, numTrials):
+#    styleChoice = styleIterator(('k+', 'r^', 'mo'))
+#    for dClass in drunkKinds:
+#        locs = getFinalLocs(numSteps, numTrials, dClass)
+#        xVals, yVals = [], []
+#        for loc in locs:
+#            xVals.append(loc.getX())
+#            yVals.append(loc.getY())
+#        xVals = pylab.array(xVals)
+#        yVals = pylab.array(yVals)
+#        meanX = sum(abs(xVals))/len(xVals)
+#        meanY = sum(abs(yVals))/len(yVals)
+#        curStyle = styleChoice.nextStyle()
+#        pylab.plot(xVals, yVals, curStyle,
+#                      label = dClass.__name__ +\
+#                      ' mean abs dist = <'
+#                      + str(meanX) + ', ' + str(meanY) + '>')
+#    pylab.title('Location at End of Walks ('
+#                + str(numSteps) + ' steps)')
+#    pylab.ylim(-100, 100)
+#    pylab.xlim(-100, 100)
+#    pylab.xlabel('Steps East/West of Origin')
+#    pylab.ylabel('Steps North/South of Origin')
+#    pylab.legend(loc = 'upper left')
+#
+#random.seed(0)
+#plotLocs([EDrunk], 1000, 1000)
