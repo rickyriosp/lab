@@ -29,3 +29,14 @@ print(stdDevOfLengths(['a', 'z', 'p']))
 print(stdDevOfLengths(['apples', 'oranges', 'kiwis', 'pineapples']))
 print(stdDevOfLengths([]))
 print(stdDevOfLengths(['cpm', 'fxekhiqwbk', 'j', 'pscdxeeypa', 'irzkdcremj']))
+
+def getMeanAndStd(X):
+    mean = sum(X)/float(len(X))
+    tot = 0.0
+    for x in X:
+        tot += (x - mean)**2
+    std = (tot/len(X))**0.5
+    return mean, std
+
+mean, std = getMeanAndStd([10, 4, 12, 15, 20, 5])
+print(mean, std, std/mean)
