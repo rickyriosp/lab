@@ -2,6 +2,7 @@
 
 import random
 import pylab
+from ps3b_precompiled_36 import *
 
 ''' 
 Begin helper code
@@ -41,7 +42,7 @@ class SimpleVirus(object):
         """
         Returns the max birth probability.
         """
-        return self.maxBitrhProb
+        return self.maxBirthProb
 
     def getClearProb(self):
         """
@@ -148,6 +149,7 @@ class Patient(object):
                 self.viruses.append(elt.reproduce(popDensity))
             except NoChildException:
                 pass
+        return self.getTotalPop()
 
 
 #
@@ -168,9 +170,20 @@ def simulationWithoutDrug(numViruses, maxPop, maxBirthProb, clearProb,
     clearProb: Maximum clearance probability (a float between 0-1)
     numTrials: number of simulation runs to execute (an integer)
     """
+    viruses = [SimpleVirus(maxBirthProb, clearProb) for i in range(numViruses)]
+    for trial in range(numTrials):
+        patient = Patient(viruses, maxPop)
+        tot = [float(patient.update()) for i in range(300)]
+        
+        pylab.plot(tot, label = "SimpleVirus")
+        pylab.title("SimpleVirus simulation")
+        pylab.xlabel("Time Steps")
+        pylab.ylabel("Average Virus Population")
+        pylab.legend(loc = "best")
+        pylab.show()
 
-    # TODO
-
+#random.seed(0)
+#simulationWithoutDrug(10, 1000, 0.1, 0.05, 1)
 
 
 #
