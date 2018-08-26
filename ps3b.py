@@ -211,21 +211,21 @@ class ResistantVirus(SimpleVirus):
         mutProb: Mutation probability for this virus particle (a float). This is
         the probability of the offspring acquiring or losing resistance to a drug.
         """
-
-        # TODO
-
+        SimpleVirus.__init__(self, maxBirthProb, clearProb)
+        self.resistances = resistances
+        self.mutProb = mutProb
 
     def getResistances(self):
         """
         Returns the resistances for this virus.
         """
-        # TODO
+        return self.resistances
 
     def getMutProb(self):
         """
         Returns the mutation probability for this virus.
         """
-        # TODO
+        return self.mutProb
 
     def isResistantTo(self, drug):
         """
@@ -238,9 +238,7 @@ class ResistantVirus(SimpleVirus):
         returns: True if this virus instance is resistant to the drug, False
         otherwise.
         """
-        
-        # TODO
-
+        return self.resistances[drug] if drug in self.resistances else False
 
     def reproduce(self, popDensity, activeDrugs):
         """
@@ -286,9 +284,19 @@ class ResistantVirus(SimpleVirus):
         maxBirthProb and clearProb values as this virus. Raises a
         NoChildException if this virus particle does not reproduce.
         """
-
-        # TODO
-
+        res = [1 for drug in activeDrugs if self.resistances.get(drug, 0)]
+        if sum(res) == len(activeDrugs):            
+            if random.random() < (self.maxBirthProb * (1 - popDensity)):
+                new_resistances = self.resistances.copy()
+                for elt in new_resistances:
+                    if random.random() < self.mutProb:
+                        new_resistances[elt] = not new_resistances[elt]
+                    else:
+                        new_resistances[elt] = new_resistances[elt]
+                return ResistantVirus(self.maxBirthProb, self.clearProb,\
+                                      new_resistances, self.mutProb)
+        else:
+            raise NoChildException()
             
 
 class TreatedPatient(Patient):
@@ -308,9 +316,8 @@ class TreatedPatient(Patient):
 
         maxPop: The  maximum virus population for this patient (an integer)
         """
-
-        # TODO
-
+        Patient.__init__(self, viruses, maxPop)
+        self.drugs = []
 
     def addPrescription(self, newDrug):
         """
@@ -322,9 +329,8 @@ class TreatedPatient(Patient):
 
         postcondition: The list of drugs being administered to a patient is updated
         """
-
-        # TODO
-
+        if newDrug not in self.drugs:
+            self.drugs.append(newDrug)
 
     def getPrescriptions(self):
         """
@@ -333,9 +339,7 @@ class TreatedPatient(Patient):
         returns: The list of drug names (strings) being administered to this
         patient.
         """
-
-        # TODO
-
+        return self.drugs
 
     def getResistPop(self, drugResist):
         """
@@ -348,9 +352,15 @@ class TreatedPatient(Patient):
         returns: The population of viruses (an integer) with resistances to all
         drugs in the drugResist list.
         """
-
-        # TODO
-
+        pop = 0
+        for virus in self.viruses:
+            resistant = True
+            for drug in drugResist:
+                if not virus.isResistantTo(drug):
+                    resistant = False
+                    break
+            if resistant == True: pop += 1
+        return pop
 
     def update(self):
         """
@@ -372,9 +382,17 @@ class TreatedPatient(Patient):
         returns: The total virus population at the end of the update (an
         integer)
         """
-
-        # TODO
-
+        copy = self.viruses.copy()
+        for elt in copy:
+            if elt.doesClear() == True:
+                self.viruses.remove(elt)
+        popDensity = self.getTotalPop()/self.maxPop
+        for elt in self.viruses:
+            try:
+                self.viruses.append(elt.reproduce(popDensity, self.drugs))
+            except NoChildException:
+                pass
+        return self.getTotalPop()
 
 
 #
