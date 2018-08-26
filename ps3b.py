@@ -16,6 +16,14 @@ class NoChildException(Exception):
     modify/add any code.
     """
 
+class NoChildException2(Exception):
+    """
+    NoChildException is raised by the reproduce() method in the SimpleVirus
+    and ResistantVirus classes to indicate that a virus particle does not
+    reproduce. You can use NoChildException as is, you do not need to
+    modify/add any code.
+    """
+
 '''
 End helper code
 '''
@@ -143,7 +151,7 @@ class Patient(object):
         for elt in copy:
             if elt.doesClear() == True:
                 self.viruses.remove(elt)
-        popDensity = self.getTotalPop()/self.maxPop
+        popDensity = len(self.viruses)/self.maxPop
         for elt in self.viruses:
             try:
                 self.viruses.append(elt.reproduce(popDensity))
@@ -171,19 +179,26 @@ def simulationWithoutDrug(numViruses, maxPop, maxBirthProb, clearProb,
     numTrials: number of simulation runs to execute (an integer)
     """
     viruses = [SimpleVirus(maxBirthProb, clearProb) for i in range(numViruses)]
+    tot = [0]*300
     for trial in range(numTrials):
         patient = Patient(viruses, maxPop)
-        tot = [float(patient.update()) for i in range(300)]
-        
-        pylab.plot(tot, label = "SimpleVirus")
-        pylab.title("SimpleVirus simulation")
-        pylab.xlabel("Time Steps")
-        pylab.ylabel("Average Virus Population")
-        pylab.legend(loc = "best")
-        pylab.show()
+        for i in range(300):
+            tot[i] += patient.update()            
+    tot = [tot[i]/numTrials for i in range(300)]
+    
+    pylab.plot(tot, label = "SimpleVirus")
+    pylab.title("SimpleVirus simulation")
+    pylab.xlabel("Time Steps")
+    pylab.ylabel("Average Virus Population")
+    pylab.legend(loc = "best")
+    pylab.show()
 
+# test cases:
 #random.seed(0)
 #simulationWithoutDrug(10, 1000, 0.1, 0.05, 1)
+#simulationWithoutDrug(1, 10, 1.0, 0.0, 1)
+#simulationWithoutDrug(100, 200, 0.2, 0.8, 1)
+#simulationWithoutDrug(1, 90, 0.8, 0.1, 1)
 
 
 #
@@ -238,7 +253,10 @@ class ResistantVirus(SimpleVirus):
         returns: True if this virus instance is resistant to the drug, False
         otherwise.
         """
-        return self.resistances[drug] if drug in self.resistances else False
+        try:
+            return self.resistances[drug]
+        except KeyError:
+            return False
 
     def reproduce(self, popDensity, activeDrugs):
         """
@@ -284,22 +302,24 @@ class ResistantVirus(SimpleVirus):
         maxBirthProb and clearProb values as this virus. Raises a
         NoChildException if this virus particle does not reproduce.
         """
-        res = [1 for drug in activeDrugs if self.resistances.get(drug, False) == True]
-        if sum(res) == len(activeDrugs):            
-            if random.random() < (self.maxBirthProb * (1 - popDensity)):
-                new_resistances = {}
-                for elt in self.resistances:
-                    if random.random() < self.mutProb:
+        if all([self.isResistantTo(drug) for drug in activeDrugs]) == True:       
+            if random.random() <= (self.maxBirthProb * (1 - popDensity)):
+                new_resistances = self.resistances.copy()
+                for elt in self.resistances.keys():
+                    if random.random() <= self.mutProb:
                         new_resistances[elt] = not self.resistances[elt]
-                    else:
-                        new_resistances[elt] = self.resistances[elt]
                 return ResistantVirus(self.maxBirthProb, self.clearProb,\
                                       new_resistances, self.mutProb)
             else:
-                raise NoChildException()
+                raise NoChildException
         else:
-            raise NoChildException()
+            raise NoChildException
             
+# test cases:
+# virus = ResistantVirus(1.0, 0.0, {"drug1":True, "drug2":False}, 0.0)
+# child = virus.reproduce(0, ["drug2"])
+# child = virus.reproduce(0, ["drug1"])
+
 
 #
 # PROBLEM 4
@@ -359,12 +379,9 @@ class TreatedPatient(Patient):
         """
         pop = 0
         for virus in self.viruses:
-            resistant = True
-            for drug in drugResist:
-                if virus.isResistantTo(drug) == False:
-                    resistant = False
-                    break
-            if resistant == True: pop += 1
+            resistant = [1 for drug in drugResist if virus.resistances.get(drug,0)]
+            if len(resistant) == len(drugResist):
+                pop += 1
         return pop
 
     def update(self):
@@ -391,12 +408,12 @@ class TreatedPatient(Patient):
         for virus in copy:
             if virus.doesClear() == True:
                 self.viruses.remove(virus)
-        popDensity = self.getTotalPop()/self.maxPop
-        for elt in self.viruses:
+        popDensity = len(self.viruses)/self.maxPop
+        for elt in self.viruses:            
             try:
                 self.viruses.append(elt.reproduce(popDensity, self.drugs))
             except NoChildException:
-                pass
+                continue
         return self.getTotalPop()
 
 
@@ -449,7 +466,7 @@ def simulationWithDrug(numViruses, maxPop, maxBirthProb, clearProb, resistances,
     pylab.show()
 
 random.seed(0)
-simulationWithDrug(100, 1000, 0.1, 0.05, {'guttagonol': False}, 0.005, 10)
+simulationWithDrug(100, 1000, 0.1, 0.05, {'guttagonol': False}, 0.005, 1)
 
 
 
