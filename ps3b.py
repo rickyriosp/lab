@@ -284,21 +284,26 @@ class ResistantVirus(SimpleVirus):
         maxBirthProb and clearProb values as this virus. Raises a
         NoChildException if this virus particle does not reproduce.
         """
-        res = [1 for drug in activeDrugs if self.resistances.get(drug, 0)]
+        res = [1 for drug in activeDrugs if self.resistances.get(drug, False) == True]
         if sum(res) == len(activeDrugs):            
             if random.random() < (self.maxBirthProb * (1 - popDensity)):
-                new_resistances = self.resistances.copy()
-                for elt in new_resistances:
+                new_resistances = {}
+                for elt in self.resistances:
                     if random.random() < self.mutProb:
-                        new_resistances[elt] = not new_resistances[elt]
+                        new_resistances[elt] = not self.resistances[elt]
                     else:
-                        new_resistances[elt] = new_resistances[elt]
+                        new_resistances[elt] = self.resistances[elt]
                 return ResistantVirus(self.maxBirthProb, self.clearProb,\
                                       new_resistances, self.mutProb)
+            else:
+                raise NoChildException()
         else:
             raise NoChildException()
             
 
+#
+# PROBLEM 4
+#
 class TreatedPatient(Patient):
     """
     Representation of a patient. The patient is able to take drugs and his/her
@@ -356,7 +361,7 @@ class TreatedPatient(Patient):
         for virus in self.viruses:
             resistant = True
             for drug in drugResist:
-                if not virus.isResistantTo(drug):
+                if virus.isResistantTo(drug) == False:
                     resistant = False
                     break
             if resistant == True: pop += 1
@@ -383,9 +388,9 @@ class TreatedPatient(Patient):
         integer)
         """
         copy = self.viruses.copy()
-        for elt in copy:
-            if elt.doesClear() == True:
-                self.viruses.remove(elt)
+        for virus in copy:
+            if virus.doesClear() == True:
+                self.viruses.remove(virus)
         popDensity = self.getTotalPop()/self.maxPop
         for elt in self.viruses:
             try:
@@ -396,7 +401,7 @@ class TreatedPatient(Patient):
 
 
 #
-# PROBLEM 4
+# PROBLEM 5
 #
 def simulationWithDrug(numViruses, maxPop, maxBirthProb, clearProb, resistances,
                        mutProb, numTrials):
@@ -420,5 +425,32 @@ def simulationWithDrug(numViruses, maxPop, maxBirthProb, clearProb, resistances,
     numTrials: number of simulation runs to execute (an integer)
     
     """
+    tot, pop = [0]*300, [0]*300
+    viruses = [ResistantVirus(maxBirthProb, clearProb, resistances, mutProb)\
+               for i in range(numViruses)]
+    for trial in range(1, numTrials+1):        
+        patient = TreatedPatient(viruses, maxPop)
+        for i in range(150):
+            tot[i] = tot[i] + patient.update()
+            pop[i] = pop[i] + patient.getResistPop(['guttagonol'])
+        patient.addPrescription('guttagonol')
+        for i in range(150, 300):
+            tot[i] = tot[i] + patient.update()
+            pop[i] = pop[i] + patient.getResistPop(['guttagonol'])
+    
+    tot = [tot[i]/numTrials for i in range(300)]
+    pop = [pop[i]/numTrials for i in range(300)]
+    pylab.plot(tot, label = "Total")
+    pylab.plot(pop, label = "ResistantVirus")
+    pylab.title("ResistantVirus simulation")
+    pylab.xlabel("Time Steps")
+    pylab.ylabel("Average Virus Population")
+    pylab.legend(loc = "best")
+    pylab.show()
 
-    # TODO
+random.seed(0)
+simulationWithDrug(100, 1000, 0.1, 0.05, {'guttagonol': False}, 0.005, 10)
+
+
+
+
