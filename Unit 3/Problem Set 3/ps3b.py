@@ -16,14 +16,6 @@ class NoChildException(Exception):
     modify/add any code.
     """
 
-class NoChildException2(Exception):
-    """
-    NoChildException is raised by the reproduce() method in the SimpleVirus
-    and ResistantVirus classes to indicate that a virus particle does not
-    reproduce. You can use NoChildException as is, you do not need to
-    modify/add any code.
-    """
-
 '''
 End helper code
 '''
@@ -152,7 +144,9 @@ class Patient(object):
             if elt.doesClear() == True:
                 self.viruses.remove(elt)
         popDensity = len(self.viruses)/self.maxPop
-        for elt in self.viruses:
+        
+        copy = self.viruses.copy()
+        for elt in copy:
             try:
                 self.viruses.append(elt.reproduce(popDensity))
             except NoChildException:
@@ -226,7 +220,7 @@ class ResistantVirus(SimpleVirus):
         mutProb: Mutation probability for this virus particle (a float). This is
         the probability of the offspring acquiring or losing resistance to a drug.
         """
-        SimpleVirus.__init__(self, maxBirthProb, clearProb)
+        super().__init__(maxBirthProb, clearProb)
         self.resistances = resistances
         self.mutProb = mutProb
 
@@ -341,7 +335,7 @@ class TreatedPatient(Patient):
 
         maxPop: The  maximum virus population for this patient (an integer)
         """
-        Patient.__init__(self, viruses, maxPop)
+        super().__init__(viruses, maxPop)
         self.drugs = []
 
     def addPrescription(self, newDrug):
@@ -409,7 +403,9 @@ class TreatedPatient(Patient):
             if virus.doesClear() == True:
                 self.viruses.remove(virus)
         popDensity = len(self.viruses)/self.maxPop
-        for elt in self.viruses:            
+        
+        copy = self.viruses.copy()
+        for elt in copy:            
             try:
                 self.viruses.append(elt.reproduce(popDensity, self.drugs))
             except NoChildException:
