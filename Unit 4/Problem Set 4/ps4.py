@@ -138,6 +138,14 @@ def generate_models(x, y, degs):
         models.append(model)
     return models
 
+## test
+#generate_models([1900, 1901, 1902, 1904, 2000], [32.0, 42.0, 31.3, 22.0, 33.0], [2])
+## output: [array([  3.51667102e-02,  -1.37199002e+02,   1.33764160e+05])]
+#generate_models([1961, 1962, 1963], [4.4, 5.5, 6.6], [1, 2])
+## output: [array([  1.10000000e+00,  -2.15270000e+03]), array([ -8.86320608e-14,\
+#                    1.10000000e+00,  -2.15270000e+03])]
+
+
 # Problem 2
 def r_squared(y, estimated):
     """
@@ -148,8 +156,19 @@ def r_squared(y, estimated):
     Returns:
         a float for the R-squared error term
     """
-    # TODO
-    pass
+    observed = np.array(y)
+    predicted = np.array(estimated)
+    error = ((observed - predicted)**2).sum()
+    mean = sum(observed)/len(observed)
+    variation = ((observed - mean)**2).sum()
+    return 1 - (error/variation)
+
+## test
+#r_squared([32.0, 42.0, 31.3, 22.0, 33.0], [32.3, 42.1, 31.2, 22.1, 34.0])
+## output: 0.9944
+#r_squared([-3.1, -4.1, -9.2, 10.1], [-2.1, -6.1, 9.2, 20.1])
+## output: -1.1834
+
 
 # Problem 3
 def evaluate_models_on_training(x, y, models):
