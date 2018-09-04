@@ -1,3 +1,5 @@
+import os
+os.environ["OPENBLAS_NUM_THREADS"] = "1"
 import numpy as np
 import pylab
 import re
@@ -130,8 +132,11 @@ def generate_models(x, y, degs):
         a list of numpy arrays, where each array is a 1-d array of coefficients
         that minimizes the squared error of the fitting polynomial
     """
-    # TODO
-    pass
+    models = []
+    for d in degs:
+        model = np.array(np.polyfit(x, y, d))
+        models.append(model)
+    return models
 
 # Problem 2
 def r_squared(y, estimated):
