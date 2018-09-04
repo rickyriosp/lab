@@ -192,8 +192,15 @@ def evaluate_models_on_training(x, y, models):
     Returns:
         None
     """
-    # TODO
-    pass
+    for deg in range(len(models)):
+        pylab.plot(x, y, 'bo', label = 'Measured points')
+        estYVals = pylab.polyval(models[deg], x)
+        pylab.plot(x, estYVals, 'r', label = 'Estimated points')
+        pylab.title('Degree: ' + str(deg+1) + '\n' + 'r**2 = '
+                    + str(round(r_squared(y, estYVals), 3)))
+        pylab.xlabel('Year')
+        pylab.ylabel('Temperature ^C')
+        pylab.legend(loc = 'best')
 
 
 ### Begining of program
@@ -207,11 +214,15 @@ for year in INTERVAL_1:
 models = generate_models(x, y, [1])
 evaluate_models_on_training(x, y, models)
 
+## test
+#What is the R^2 value? (use 3 decimal places)
+## output: 0.005
+
 
 # Problem 4: FILL IN MISSING CODE TO GENERATE y VALUES
-x1 = INTERVAL_1
-x2 = INTERVAL_2
-y = []
-# MISSING LINES
-models = generate_models(x, y, [1])    
-evaluate_models_on_training(x, y, models)
+#x1 = INTERVAL_1
+#x2 = INTERVAL_2
+#y = []
+## MISSING LINES
+#models = generate_models(x, y, [1])    
+#evaluate_models_on_training(x, y, models)
