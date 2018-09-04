@@ -207,12 +207,14 @@ def evaluate_models_on_training(x, y, models):
 raw_data = Climate('data.csv')
 
 # Problem 3
-#y = []
-#x = INTERVAL_1
-#for year in INTERVAL_1:
-#    y.append(raw_data.get_daily_temp('BOSTON', 1, 10, year))
-#models = generate_models(x, y, [1])
-#evaluate_models_on_training(x, y, models)
+pylab.figure('Problem 3')
+pylab.clf()
+y = []
+x = INTERVAL_1
+for year in INTERVAL_1:
+    y.append(raw_data.get_daily_temp('BOSTON', 1, 10, year))
+models = generate_models(x, y, [1])
+evaluate_models_on_training(x, y, models)
 
 ## test
 #What is the R^2 value? (use 3 decimal places)
@@ -220,6 +222,8 @@ raw_data = Climate('data.csv')
 
 
 # Problem 4: FILL IN MISSING CODE TO GENERATE y VALUES
+pylab.figure('Problem 4')
+pylab.clf()
 x1 = INTERVAL_1
 x2 = INTERVAL_2
 y = []
