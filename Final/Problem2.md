@@ -37,14 +37,19 @@ For each of the following expressions using the code above, match the following 
 
 **Graph 1**</br>
 ![Graph 1](Problem2_Graph1.png)
+
 **Graph 2**</br>
 ![Graph 2](Problem2_Graph2.png)
+
 **Graph 3**</br>
 ![Graph 3](Problem2_Graph3.png)
+
 **Graph 4**</br>
 ![Graph 4](Problem2_Graph4.png)
+
 **Graph 5**</br>
 ![Graph 5](Problem2_Graph5.png)
+
 **Graph 6**</br>
 ![Graph 6](Problem2_Graph6.png)
 
