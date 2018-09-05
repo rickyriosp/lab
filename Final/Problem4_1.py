@@ -8,7 +8,7 @@ Created on Wed Sep  5 11:32:49 2018
 # Problem 4
 
 # Problem 4-1
-# 0.0/10.0 points (graded)
+# 10.0/10.0 points (graded)
 # You are given the following function and class and function specifications 
 # for the two coding problems on this page (also available in this file, die.py):
 
