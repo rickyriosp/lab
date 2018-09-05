@@ -60,7 +60,7 @@ def foxGrowth():
         else:
             # fox dying
             if CURRENTFOXPOP > 10:                
-                if random.random() <= 1/10:
+                if random.random() <= 9/10:
                     CURRENTFOXPOP -= 1
 
 
@@ -91,6 +91,10 @@ pylab.xlabel('Time step')
 pylab.ylabel('Population')
 pylab.plot(rabbits, 'b-', label='Rabbits')
 pylab.plot(foxes, 'r-', label='Foxes')
+
+coeff = pylab.polyfit(range(len(rabbits)), rabbits, 2)
+pylab.plot(pylab.polyval(coeff, range(len(rabbits))), 'b--', label='Cuadratic Fit')
+
+coeff = pylab.polyfit(range(len(foxes)), foxes, 2)
+pylab.plot(pylab.polyval(coeff, range(len(foxes))), 'r--', label='Cuadratic Fit')
 pylab.legend(loc='best')
-
-

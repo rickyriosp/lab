@@ -70,6 +70,15 @@ Created on Wed Sep  5 13:55:54 2018
 # Enter the code for the functions rabbitGrowth, foxGrowth, and runSimulation below.
 
 
+import random
+import pylab
+
+# Global Variables
+MAXRABBITPOP = 1000
+CURRENTRABBITPOP = 500
+CURRENTFOXPOP = 30
+
+
 def rabbitGrowth():
     """ 
     rabbitGrowth is called once at the beginning of each time step.
