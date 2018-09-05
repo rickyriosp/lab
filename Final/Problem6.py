@@ -87,7 +87,3 @@ def find_combination(choices, total):
 
 print(find_combination([1,2,2,3], 4))
 print(find_combination([1,1,3,5,3], 5))
-
-
-
-
