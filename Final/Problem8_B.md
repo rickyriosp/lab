@@ -7,9 +7,9 @@ Follow the next steps of the simulation to answer the remaining questions.
 **Step 5**: Use polyfit to find the coefficients of a 2nd degree polynomial for the rabbit curve and the same for the fox curve. Then use polyval to evaluation the 2nd degree polynomial and plot it, e.g.
 
 ```python
-     `coeff = polyfit(range(len(rabbitPopulationOverTime)), rabbitPopulationOverTime, 2)`
+    coeff = polyfit(range(len(rabbitPopulationOverTime)), rabbitPopulationOverTime, 2)
 
-     `plot(polyval(coeff, range(len(rabbitPopulationOverTime))))`
+    plot(polyval(coeff, range(len(rabbitPopulationOverTime))))
 ```
 
 Of course your variables and plotting commands may not look identical to the above code; the above code is shown just to give you an idea of what we mean.
