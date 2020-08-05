@@ -1,4 +1,5 @@
 const express = require("express");
+const bcrypt = require("bcryptjs");
 
 const app = express();
 app.use(express.json());
@@ -22,6 +23,13 @@ const database = {
       joined: new Date(),
     },
   ],
+  login: [
+    {
+      id: "123",
+      hash: "",
+      email: "john@gmail.com",
+    },
+  ],
 };
 
 app.get("/", (req, res) => {
@@ -41,6 +49,7 @@ app.post("/signin", (req, res) => {
 
 app.post("/register", (req, res) => {
   const { email, name, password } = req.body;
+
   database.users.push({
     id: "125",
     name: name,
@@ -82,6 +91,28 @@ app.post("/image", (req, res) => {
     res.status(400).json("user not found");
   }
 });
+
+// Generate Salt to encrypt hash
+// bcrypt.genSalt(10, function (err, salt) {
+//   bcrypt.hash(password, salt, function (err, hash) {
+//     // Store hash in your password DB.
+//     console.log(hash);
+//   });
+// });
+
+// Load hash from your password DB.
+// bcrypt.compare("B4c0/\/", hash, function(err, res) {
+//   // res === true
+// });
+// bcrypt.compare("not_bacon", hash, function(err, res) {
+//   // res === false
+// });
+
+// Load hash from your password DB.
+// As of bcryptjs 2.4.0, compare returns a promise if callback is omitted:
+// bcrypt.compare("B4c0//", hash).then((res) => {
+//   // res === true
+// });
 
 app.listen(3000, () => {
   console.log("app is running on port 3000");
