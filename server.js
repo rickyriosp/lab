@@ -54,12 +54,33 @@ app.post("/register", (req, res) => {
 
 app.get("/profile/:id", (req, res) => {
   const { id } = req.params;
-  database.users.forEach((user) => {
+  const users = database.users.filter((user) => {
     if (user.id === id) {
-      return res.json(user);
+      return user;
     }
   });
-  res.status(400).json("user not found");
+
+  if (users.length !== 0) {
+    res.json(users[0]);
+  } else {
+    res.status(400).json("user not found");
+  }
+});
+
+app.post("/image", (req, res) => {
+  const { id } = req.body;
+  const users = database.users.filter((user) => {
+    if (user.id === id) {
+      return user;
+    }
+  });
+
+  if (users.length !== 0) {
+    users[0].entries++;
+    res.json(users[0].entries);
+  } else {
+    res.status(400).json("user not found");
+  }
 });
 
 app.listen(3000, () => {
