@@ -78,7 +78,7 @@ app.get("/profile/:id", (req, res) => {
   }
 });
 
-app.post("/image", (req, res) => {
+app.put("/image", (req, res) => {
   const { id } = req.body;
   const users = database.users.filter((user) => {
     if (user.id === id) {
