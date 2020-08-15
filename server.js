@@ -83,17 +83,19 @@ app.post("/register", (req, res) => {
 
 app.get("/profile/:id", (req, res) => {
   const { id } = req.params;
-  const users = database.users.filter((user) => {
-    if (user.id === id) {
-      return user;
-    }
-  });
-
-  if (users.length !== 0) {
-    res.json(users[0]);
-  } else {
-    res.status(400).json("user not found");
-  }
+  db.select("*")
+    .from("users")
+    .where({ id })
+    .then((user) => {
+      if (user.length) {
+        res.json(user[0]);
+      } else {
+        res.status(400).json("user not found");
+      }
+    })
+    .catch((err) => {
+      res.status(400).json("error getting user");
+    });
 });
 
 app.put("/image", (req, res) => {
