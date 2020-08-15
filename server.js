@@ -100,18 +100,14 @@ app.get("/profile/:id", (req, res) => {
 
 app.put("/image", (req, res) => {
   const { id } = req.body;
-  const users = database.users.filter((user) => {
-    if (user.id === id) {
-      return user;
-    }
-  });
-
-  if (users.length !== 0) {
-    users[0].entries++;
-    res.json(users[0].entries);
-  } else {
-    res.status(400).json("user not found");
-  }
+  db("users")
+    .where("id", "=", id)
+    .increment("entries", 1)
+    .returning("entries")
+    .then((entries) => {
+      res.json(entries[0]);
+    })
+    .catch((err) => res.status(400).json("unable to get entries"));
 });
 
 // Generate Salt to encrypt hash
