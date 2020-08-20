@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-// const bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs");
 const knex = require("knex");
 
 const db = knex({
@@ -12,12 +12,6 @@ const db = knex({
     database: "face-recognition-app",
   },
 });
-
-db.select("*")
-  .from("users")
-  .then((data) => {
-    console.log(data);
-  });
 
 const app = express();
 app.use(express.json());
@@ -68,22 +62,39 @@ app.post("/signin", (req, res) => {
 
 app.post("/register", (req, res) => {
   const { email, name, password } = req.body;
-  db("users")
-    .returning("*")
-    .insert({
-      name: name,
-      email: email,
-      joined: new Date(),
-    })
-    .then((user) => {
-      res.json(user[0]);
-    })
-    .catch((err) => res.status(400).json("unable to register"));
+  // Bcryptjs
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(password, salt);
+  // Store hash in your password DB.
+  db.transaction((trx) => {
+    trx
+      .insert({
+        hash: hash,
+        email: email,
+      })
+      .into("login")
+      .returning("email")
+      .then((loginEmail) => {
+        return trx("users")
+          .returning("*")
+          .insert({
+            name: name,
+            email: loginEmail[0],
+            joined: new Date(),
+          })
+          .then((user) => {
+            res.json(user[0]);
+          });
+      })
+      .then(trx.commit)
+      .catch(trx.rollback);
+  }).catch((err) => res.status(400).json("unable to register"));
 });
 
 app.get("/profile/:id", (req, res) => {
   const { id } = req.params;
-  db.select("*")
+  return db
+    .select("*")
     .from("users")
     .where({ id })
     .then((user) => {
@@ -100,7 +111,7 @@ app.get("/profile/:id", (req, res) => {
 
 app.put("/image", (req, res) => {
   const { id } = req.body;
-  db("users")
+  return db("users")
     .where("id", "=", id)
     .increment("entries", 1)
     .returning("entries")
@@ -110,6 +121,11 @@ app.put("/image", (req, res) => {
     .catch((err) => res.status(400).json("unable to get entries"));
 });
 
+app.listen(3000, () => {
+  console.log("app is running on port 3000");
+});
+
+// Asynchronous Bcrypt
 // Generate Salt to encrypt hash
 // bcrypt.genSalt(10, function (err, salt) {
 //   bcrypt.hash(password, salt, function (err, hash) {
@@ -131,17 +147,3 @@ app.put("/image", (req, res) => {
 // bcrypt.compare("B4c0//", hash).then((res) => {
 //   // res === true
 // });
-
-app.listen(3000, () => {
-  console.log("app is running on port 3000");
-});
-
-/*
-
-/ --> res = this is working
-/signin --> POST = success/fail
-/register --> POST = user
-/profile/:userId --> GET = user
-/image --> PUT = user
-
-*/
