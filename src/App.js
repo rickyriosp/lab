@@ -84,7 +84,7 @@ class App extends React.Component {
     fetch(`${apiUrl}/imageurl`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ input: this.state.imageUrl }),
+      body: JSON.stringify({ input: this.state.input }),
     })
       .then((response) => response.json())
       .then((response) => {
