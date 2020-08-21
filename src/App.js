@@ -9,6 +9,8 @@ import React from "react";
 import Register from "./Components/Register/Register";
 import Signin from "./Components/Signin/Signin";
 
+export const apiUrl = "https://infinite-peak-41797.herokuapp.com";
+
 const particlesOptions = {
   particles: {
     number: {
@@ -79,14 +81,14 @@ class App extends React.Component {
 
   onButtonSubmit = () => {
     this.setState({ imageUrl: this.state.input });
-    fetch("http://localhost:3000/imageurl", {
+    fetch(`${apiUrl}/imageurl`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ input: this.state.imageUrl }),
     })
       .then((response) => response.json())
       .then((response) => {
-        fetch("http://localhost:3000/image", {
+        fetch(`${apiUrl}/image`, {
           method: "put",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id: this.state.user.id }),

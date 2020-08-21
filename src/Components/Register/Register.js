@@ -1,4 +1,5 @@
 import React from "react";
+import { apiUrl } from "../../App";
 
 class Register extends React.Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class Register extends React.Component {
   };
 
   onSubmitRegister = () => {
-    fetch("http://localhost:3000/register", {
+    fetch(`${apiUrl}/register`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
