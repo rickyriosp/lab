@@ -2,12 +2,13 @@ const express = require("express");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const knex = require("knex");
-const { request } = require("express");
 
 const register = require("./controllers/register");
 const signin = require("./controllers/signin");
 const profile = require("./controllers/profile");
 const image = require("./controllers/image");
+
+require("dotenv").config();
 
 const db = knex({
   client: "pg",
@@ -45,6 +46,11 @@ app.get("/profile/:id", (req, res) => {
 app.put("/image", (req, res) => {
   // Dependency injection
   image.handleImage(req, res, db);
+});
+
+app.post("/imageurl", (req, res) => {
+  // Dependency injection
+  image.handleApiCall(req, res);
 });
 
 app.listen(3000, () => {
