@@ -91,17 +91,21 @@ class App extends React.Component {
     })
       .then((response) => response.json())
       .then((response) => {
-        fetch(`${apiUrl}/image`, {
-          method: "put",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id: this.state.user.id }),
-        })
-          .then((response) => response.json())
-          .then((count) => {
-            this.setState(Object.assign(this.state.user, { entries: count }));
+        if (response === "unable to work with API") {
+          console.log("error with Clarifai API");
+        } else {
+          fetch(`${apiUrl}/image`, {
+            method: "put",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id: this.state.user.id }),
           })
-          .catch(console.log);
-        this.displayFaceBox(this.calculateFaceLocation(response));
+            .then((response) => response.json())
+            .then((count) => {
+              this.setState(Object.assign(this.state.user, { entries: count }));
+            })
+            .catch(console.log);
+          this.displayFaceBox(this.calculateFaceLocation(response));
+        }
       })
       .catch((err) => console.log("Error: ", err));
   };
