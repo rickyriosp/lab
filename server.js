@@ -10,13 +10,25 @@ const image = require("./controllers/image");
 
 require("dotenv").config();
 
+// Development DB
+// const db = knex({
+//   client: "pg",
+//   connection: {
+//     host: "127.0.0.1",
+//     user: "nas7ybruises",
+//     password: "password",
+//     database: "face-recognition-app",
+//   },
+// });
+
+// Production DB
 const db = knex({
   client: "pg",
   connection: {
-    host: "127.0.0.1",
-    user: "nas7ybruises",
-    password: "password",
-    database: "face-recognition-app",
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
+    }
   },
 });
 
