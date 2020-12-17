@@ -9,6 +9,10 @@ import React from "react";
 import Register from "./Components/Register/Register";
 import Signin from "./Components/Signin/Signin";
 
+// Development URL
+// export const apiUrl = "http://localhost:3000"
+
+// Production URL
 export const apiUrl = "https://infinite-peak-41797.herokuapp.com";
 
 const particlesOptions = {
