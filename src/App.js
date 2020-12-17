@@ -97,6 +97,8 @@ class App extends React.Component {
       .then((response) => {
         if (response === "unable to work with API") {
           console.log("error with Clarifai API");
+        } else if (response.outputs[0].data.regions === undefined) {
+          console.log('No faces detected')
         } else {
           fetch(`${apiUrl}/image`, {
             method: "put",
