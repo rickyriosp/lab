@@ -64,3 +64,15 @@ main>.container {
 .css3icon {
     color: #0A71B8;
 }
+
+.checklist>li i {
+    color: var(--secondary-color);
+}
+
+code[class*="language-"],
+pre[class*="language-"] {
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+    font-size: 1.5rem;
+}
