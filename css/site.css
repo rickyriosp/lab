@@ -47,3 +47,20 @@ main>.container {
     bottom: 0;
     width: 100%;
 }
+
+/* Technology Icons Colors */
+.bsicon {
+    color: #8312FA;
+}
+
+.jsicon {
+    color: #F0DB4F;
+}
+
+.html5icon {
+    color: #E44D26;
+}
+
+.css3icon {
+    color: #0A71B8;
+}
