@@ -3,7 +3,7 @@ import "./App.css";
 import FaceRecognition from "./Components/FaceRecognition/FaceRecognition";
 import ImageLinkForm from "./Components/ImageLinkForm/ImageLinkForm";
 import Navigation from "./Components/Navigation/Navigation";
-import Particles from "react-particles-js";
+import Particles from "react-tsparticles";
 import Rank from "./Components/Rank/Rank";
 import React from "react";
 import Register from "./Components/Register/Register";
@@ -156,7 +156,7 @@ class App extends React.Component {
     return (
       <div className = "App" >
         <Particles className = "particles"
-          params = {
+          options = {
             particlesOptions
           }
         />
