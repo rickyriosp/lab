@@ -13,7 +13,7 @@ import Signin from "./Components/Signin/Signin";
 // export const apiUrl = "http://localhost:3000"
 
 // Production URL
-export const apiUrl = "https://faceapp-backend.herokuapp.com/";
+export const apiUrl = "https://faceapp-backend.herokuapp.com";
 
 const particlesOptions = {
   particles: {
@@ -153,67 +153,72 @@ class App extends React.Component {
       isSignedIn
     } = this.state;
 
-    return ( <
-        div className = "App" >
-        <
-        Particles className = "particles"
-        params = {
-          particlesOptions
-        }
-        /> <
-        Navigation isSignedIn = {
-          isSignedIn
-        }
-        onRouteChange = {
-          this.onRouteChange
-        }
-        /> {
-        route === "home" ? ( <
-          div >
-          <
-          Rank name = {
-            this.state.user.name
+    return (
+      <div className = "App" >
+        <Particles className = "particles"
+          params = {
+            particlesOptions
           }
-          entries = {
-            this.state.user.entries
-          }
-          /> <
-          ImageLinkForm onInputChange = {
-            this.onInputChange
-          }
-          onButtonSubmit = {
-            this.onButtonSubmit
-          }
-          /> <
-          FaceRecognition box = {
-            box
-          }
-          imageUrl = {
-            imageUrl
-          }
-          /> < /
-          div >
-        ) : route === "signin" ? ( <
-          Signin loadUser = {
-            this.loadUser
+        />
+        <Navigation 
+          isSignedIn = {
+            isSignedIn
           }
           onRouteChange = {
             this.onRouteChange
           }
-          />
-        ) : ( <
-          Register loadUser = {
-            this.loadUser
-          }
-          onRouteChange = {
-            this.onRouteChange
-          }
-          />
-        )
-      } <
-      /div>
-  );
-}
+        />
+        {
+          route === "home" ? (
+            <div>
+              <Rank 
+                name = {
+                  this.state.user.name
+                }
+                entries = {
+                  this.state.user.entries
+                }
+              />
+              <ImageLinkForm 
+                onInputChange = {
+                  this.onInputChange
+                }
+                onButtonSubmit = {
+                  this.onButtonSubmit
+                }
+              />
+              <FaceRecognition 
+                box = {
+                  box
+                }
+                imageUrl = {
+                  imageUrl
+                }
+              />
+            </div>
+          ) : route === "signin" ? (
+            <Signin 
+              loadUser = {
+                this.loadUser
+              }
+              onRouteChange = {
+                this.onRouteChange
+              }
+            />
+          ) : (
+            <Register 
+              loadUser = {
+                this.loadUser
+              }
+              onRouteChange = {
+                this.onRouteChange
+              }
+            />
+          )
+        }
+      </div>
+    );
+  }
 }
 
 export default App;
