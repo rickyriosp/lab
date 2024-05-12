@@ -3,7 +3,9 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.StringTokenizer;
+import java.util.zip.GZIPOutputStream;
 
 public class ClientHandler extends Thread {
 
@@ -137,6 +139,12 @@ public class ClientHandler extends Thread {
             } else if (path.startsWith("/echo/")) {
                 // Echo path response
                 responseBody = path.replaceFirst("/echo/", "");
+
+                if (contentEncodingStr.contains("gzip")) {
+                    responseBody = GzipUtil.compress(responseBody, StandardCharsets.UTF_8.toString());
+                }
+                String testCompression = GzipUtil.decompress(responseBody, StandardCharsets.UTF_8.toString());
+
                 contentLengthStr += responseBody.length() + CRLF;
                 response = httpOkResponse + contentText + contentLengthStr + contentEncodingStr + CRLF + responseBody;
                 outputStream.write(response.getBytes(StandardCharsets.UTF_8));
