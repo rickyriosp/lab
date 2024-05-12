@@ -121,8 +121,8 @@ public class ClientHandler extends Thread {
 
             // Select the first valid encoding, otherwise do not send content encoding in response
             for (String encoding : acceptEncoding.split(",")) {
-                if (Encodings.getByName(encoding) != null) {
-                    contentEncodingStr += encoding + CRLF;
+                if (Encodings.getByName(encoding.trim()) != null) {
+                    contentEncodingStr += encoding.trim() + CRLF;
                     break;
                 }
             }
