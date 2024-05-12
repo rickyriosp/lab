@@ -143,19 +143,21 @@ public class ClientHandler extends Thread {
                 contentLengthStr += responseBody.length() + CRLF;
 
                 byte[] compressed = null;
+                ByteBuffer byteBuffer;
                 if (contentEncodingStr.contains("gzip")) {
                     compressed = GzipUtil.compress(responseBody, StandardCharsets.UTF_8.toString());
                     contentLengthStr = "Content-Length: " + compressed.length + CRLF;
 
                     response = httpOkResponse + contentText + contentLengthStr + contentEncodingStr + CRLF;
+                    byteBuffer = ByteBuffer.allocate(response.length() + compressed.length);
+                    byteBuffer.put(response.getBytes());
+                    byteBuffer.put(compressed);
                 } else {
                     response = httpOkResponse + contentText + contentLengthStr + contentEncodingStr + CRLF + responseBody;
+                    byteBuffer = ByteBuffer.allocate(response.length() + responseBody.length());
+                    byteBuffer.put(response.getBytes());
                 }
                 //String testCompression = GzipUtil.decompress(compressed, StandardCharsets.UTF_8.toString());
-
-                ByteBuffer byteBuffer = ByteBuffer.allocate(response.length() + compressed.length);
-                byteBuffer.put(response.getBytes());
-                byteBuffer.put(compressed);
 
                 outputStream.write(byteBuffer.array());
                 System.out.println("server response :: 200 OK");
