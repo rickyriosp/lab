@@ -27,7 +27,7 @@ public class ClientHandler extends Thread {
     String contentType = "";
     String contentLength = "";
     String contentEncoding = "";
-    String acceptEncodingStr = "Accept-Encoding: ";
+    String contentEncodingStr = "Accept-Encoding: ";
     String contentTypeStr = "Content-Type: ";
     String contentLengthStr = "Content-Length: ";
     final String contentText = "Content-Type: text/plain" + CRLF;
@@ -127,13 +127,13 @@ public class ClientHandler extends Thread {
             } else if (path.startsWith("/echo/")) {
                 // Echo path response
                 if (Encodings.getByName(acceptEncoding) != null) {
-                    acceptEncodingStr += acceptEncoding + CRLF;
+                    contentEncodingStr += acceptEncoding + CRLF;
                 } else {
-                    acceptEncodingStr = "";
+                    contentEncodingStr = "";
                 }
                 responseBody = path.replaceFirst("/echo/", "");
                 contentLengthStr += responseBody.length() + CRLF;
-                response = httpOkResponse + contentText + contentLengthStr + acceptEncodingStr + CRLF + responseBody;
+                response = httpOkResponse + contentText + contentLengthStr + contentEncodingStr + CRLF + responseBody;
                 outputStream.write(response.getBytes(StandardCharsets.UTF_8));
                 System.out.println("server response :: 200 OK");
 
