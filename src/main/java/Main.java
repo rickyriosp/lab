@@ -50,7 +50,7 @@ public class Main {
         System.out.println("server response :: 200 OK");
       } else if (path.startsWith("/echo/")) {
         String echo = path.replaceFirst("/echo/", "");
-        response = httpOkResponse + CRLF + contentText + CRLF + contentLength + echo.length() + CRLF + CRLF + echo;
+        response = httpOkResponse + contentText + CRLF + contentLength + echo.length() + CRLF + CRLF + echo;
         clientOutputStream.write(response.getBytes(StandardCharsets.UTF_8));
         System.out.println("server response :: 200 OK");
       } else {
