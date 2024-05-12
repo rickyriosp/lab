@@ -12,11 +12,13 @@ public class Main {
         // You can use print statements as follows for debugging, they'll be visible when running tests.
         System.out.println("Logs from your program will appear here!");
 
-        // Uncomment this block to pass the first stage
-        //
+        String directoryPath = "";
+        if (args.length > 1 && args[0].equals("--directory") && args[1] != null) {
+            directoryPath = args[1].endsWith("/") ? args[1] : args[1] + "/";
+        }
+
         ServerSocket serverSocket = null;
         Socket clientSocket = null;
-
 
         try {
             serverSocket = new ServerSocket(4221);
@@ -26,7 +28,7 @@ public class Main {
                 clientSocket = serverSocket.accept(); // Wait for connection from client.
                 System.out.println("accepted new connection");
 
-                Thread newClient = new ClientHandler(clientSocket);
+                Thread newClient = new ClientHandler(clientSocket, directoryPath);
                 newClient.start();
             }
         } catch (IOException e) {

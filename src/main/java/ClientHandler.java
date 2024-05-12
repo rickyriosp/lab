@@ -1,12 +1,16 @@
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class ClientHandler extends Thread {
 
+    String directoryPath;
     final Socket clientSocket;
     InputStream inputStream;
     OutputStream outputStream;
@@ -29,9 +33,11 @@ public class ClientHandler extends Thread {
     String contentEncoding = "";
     final String contentText = "Content-Type: text/plain" + CRLF;
     final String contentJson = "Content-Type: application/json" + CRLF;
+    final String contentOctet = "Content-Type: application/octet-stream" + CRLF;
 
-    public ClientHandler(Socket s) {
+    public ClientHandler(Socket s, String directoryPath) {
         this.clientSocket = s;
+        this.directoryPath = directoryPath;
     }
 
     @Override
@@ -51,6 +57,7 @@ public class ClientHandler extends Thread {
             System.out.println("firstLine :: " + method + " " + path + " " + version);
             System.out.println("client requesting connection to resource :: " + path);
 
+            // Parse headers
             while (input.hasNextLine()) {
                 String header = input.nextLine();
                 if (header.isBlank() || header.isEmpty()) break;
@@ -84,6 +91,7 @@ public class ClientHandler extends Thread {
             }
 
             String response = "";
+            String contentBody = "";
             if (path.equals("/")) {
                 response = httpOkResponse + CRLF;
                 outputStream.write(response.getBytes(StandardCharsets.UTF_8));
@@ -96,16 +104,32 @@ public class ClientHandler extends Thread {
                 System.out.println("server response :: 200 OK");
 
             } else if (path.equals("/user-agent")) {
-                response = httpOkResponse + contentText + contentLength + userAgent.length() + CRLF + CRLF + userAgent;
+                contentBody = userAgent;
+                response = httpOkResponse + contentText + contentLength + contentBody.length() + CRLF + CRLF + contentBody;
                 outputStream.write(response.getBytes(StandardCharsets.UTF_8));
                 System.out.println("server response :: 200 OK");
+
+            } else if (path.startsWith("/files")) {
+                String filePath = path.replaceFirst("/files/", "");
+                File file = new File(directoryPath + filePath);
+
+                if (file.exists()) {
+                    contentBody = new String(Files.readAllBytes(Paths.get(file.toURI())));
+                    response = httpOkResponse + contentOctet + contentLength + contentBody.length() + CRLF + CRLF + contentBody;
+                    outputStream.write(response.getBytes(StandardCharsets.UTF_8));
+                    System.out.println("server response :: 200 OK");
+                } else {
+                    response = http404Response + CRLF;
+                    outputStream.write(response.getBytes(StandardCharsets.UTF_8));
+                    System.out.println("server response :: 404 Not Found");
+                }
 
             } else {
                 response = http404Response + CRLF;
                 outputStream.write(response.getBytes(StandardCharsets.UTF_8));
                 System.out.println("server response :: 404 Not Found");
             }
-            
+
             this.clientSocket.close();
         } catch (IOException e) {
             System.out.println("IOException: " + e.getMessage());
