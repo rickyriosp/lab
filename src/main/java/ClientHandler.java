@@ -133,7 +133,7 @@ public class ClientHandler extends Thread {
                 }
                 responseBody = path.replaceFirst("/echo/", "");
                 contentLengthStr += responseBody.length() + CRLF;
-                response = httpOkResponse + contentText + contentLengthStr + acceptEncodingStr + responseBody;
+                response = httpOkResponse + contentText + contentLengthStr + acceptEncodingStr + CRLF + responseBody;
                 outputStream.write(response.getBytes(StandardCharsets.UTF_8));
                 System.out.println("server response :: 200 OK");
 
