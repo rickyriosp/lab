@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.Socket;
+import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -140,14 +141,20 @@ public class ClientHandler extends Thread {
                 // Echo path response
                 responseBody = path.replaceFirst("/echo/", "");
 
+                byte[] compressed = null;
                 if (contentEncodingStr.contains("gzip")) {
-                    responseBody = GzipUtil.compress(responseBody, StandardCharsets.UTF_8.toString());
+                    compressed = GzipUtil.compress(responseBody, StandardCharsets.UTF_8.toString());
                 }
-                String testCompression = GzipUtil.decompress(responseBody, StandardCharsets.UTF_8.toString());
+                //String testCompression = GzipUtil.decompress(compressed, StandardCharsets.UTF_8.toString());
 
-                contentLengthStr += responseBody.length() + CRLF;
-                response = httpOkResponse + contentText + contentLengthStr + contentEncodingStr + CRLF + responseBody;
-                outputStream.write(response.getBytes(StandardCharsets.UTF_8));
+                contentLengthStr += compressed.length + CRLF;
+                response = httpOkResponse + contentText + contentLengthStr + contentEncodingStr + CRLF;
+
+                ByteBuffer byteBuffer = ByteBuffer.allocate(response.length() + compressed.length);
+                byteBuffer.put(response.getBytes());
+                byteBuffer.put(compressed);
+
+                outputStream.write(byteBuffer.array());
                 System.out.println("server response :: 200 OK");
 
             } else if (path.equals("/user-agent")) {

@@ -7,7 +7,51 @@ import java.util.zip.GZIPOutputStream;
 
 public class GzipUtil {
 
-    public static String compress(String str, String inEncoding) {
+    public static byte[] compress(String str, String inEncoding) {
+        if (str == null || str.length() == 0) {
+            return str.getBytes();
+        }
+
+        try {
+            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+            GZIPOutputStream gzipOS = new GZIPOutputStream(outStream);
+            gzipOS.write(str.getBytes(inEncoding));
+            gzipOS.flush();
+            gzipOS.close();
+
+            return outStream.toByteArray();
+        } catch (IOException e) {
+            System.out.println("IOException: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String decompress(byte[] bytes, String outEncoding) {
+        if (bytes == null || bytes.length == 0) {
+            return null;
+        }
+
+        try {
+            //byte[] bytes = Base64.getDecoder().decode(str.getBytes());
+            ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+            ByteArrayInputStream inStream = new ByteArrayInputStream(bytes);
+            GZIPInputStream gzipIS = new GZIPInputStream(inStream);
+
+            int bufferSize = 1024;
+            byte[] buffer = new byte[bufferSize];
+            for (int numRead; (numRead = gzipIS.read(buffer, 0, bufferSize)) > 0;) {
+                outStream.write(buffer, 0, numRead);
+            }
+            return outStream.toString(outEncoding);
+        } catch (IOException e) {
+            System.out.println("IOException: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String compressBase64(String str, String inEncoding) {
         if (str == null || str.length() == 0) {
             return str;
         }
@@ -26,7 +70,7 @@ public class GzipUtil {
         return null;
     }
 
-    public static String decompress(String str, String outEncoding) {
+    public static String decompressBase64(String str, String outEncoding) {
         if (str == null || str.length() == 0) {
             return str;
         }
