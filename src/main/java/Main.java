@@ -12,7 +12,7 @@ public class Main {
     final String CRLF = "\r\n";
     final String httpOkResponse = "HTTP/1.1 200 OK" + CRLF;
     final String http404Response = "HTTP/1.1 404 Not Found" + CRLF;
-    final String contentText = "Content-Type: text/plain";
+    final String contentText = "Content-Type: text/plain" + CRLF;
     String contentLength = "Content-Length: ";
 
     // You can use print statements as follows for debugging, they'll be visible when running tests.
@@ -50,11 +50,12 @@ public class Main {
         System.out.println("server response :: 200 OK");
       } else if (path.startsWith("/echo/")) {
         String echo = path.replaceFirst("/echo/", "");
-        response = httpOkResponse + contentText + CRLF + contentLength + echo.length() + CRLF + CRLF + echo;
+        response = httpOkResponse + contentText + contentLength + echo.length() + CRLF + CRLF + echo;
         clientOutputStream.write(response.getBytes(StandardCharsets.UTF_8));
         System.out.println("server response :: 200 OK");
       } else {
-        clientOutputStream.write(http404Response.getBytes(StandardCharsets.UTF_8));
+        response = http404Response + CRLF;
+        clientOutputStream.write(response.getBytes(StandardCharsets.UTF_8));
         System.out.println("server response :: 404 Not Found");
       }
 
