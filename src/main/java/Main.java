@@ -59,23 +59,25 @@ public class Main {
         String header = input.nextLine();
         if (header.isBlank() || header.isEmpty()) break;
 
-        switch (header.split(":")[0].toLowerCase()) {
+        String headerName = header.split(":")[0].trim();
+        String headerValue = header.split(":")[1].trim();
+        switch (headerName.toLowerCase()) {
           case "host":
-            host = header;
+            host = headerValue;
             break;
           case "user-agent":
-            userAgent = header;
+            userAgent = headerValue;
             break;
           case "accept":
-            accept = header;
+            accept = headerValue;
             break;
           case "accept-language":
-            acceptLanguage = header;
+            acceptLanguage = headerValue;
             break;
           case "accept-encoding":
-            acceptEncoding = header;
+            acceptEncoding = headerValue;
           case "content-type":
-            contentType = header;
+            contentType = headerValue;
             break;
           default:
             break;
