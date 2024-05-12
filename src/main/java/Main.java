@@ -12,8 +12,20 @@ public class Main {
     final String CRLF = "\r\n";
     final String httpOkResponse = "HTTP/1.1 200 OK" + CRLF;
     final String http404Response = "HTTP/1.1 404 Not Found" + CRLF;
-    final String contentText = "Content-Type: text/plain" + CRLF;
+
+    // Headers
+    String host = "";
+    String userAgent = "";
+    String accept = "";
+    String acceptLanguage = "";
+    String acceptEncoding = "";
+    String referer = "";
+    String connection = "";
+    String contentType = "Content-Type: ";
     String contentLength = "Content-Length: ";
+    final String contentText = "Content-Type: text/plain" + CRLF;
+    final String contentJson = "Content-Type: application/json" + CRLF;
+
 
     // You can use print statements as follows for debugging, they'll be visible when running tests.
     System.out.println("Logs from your program will appear here!");
@@ -43,16 +55,50 @@ public class Main {
       System.out.println("firstLine :: " + method + " " + path + " " + version);
       System.out.println("client requesting connection to resource :: " + path);
 
+      while (input.hasNextLine()) {
+        String header = input.nextLine();
+        if (header.isBlank() || header.isEmpty()) break;
+
+        switch (header.split(":")[0].toLowerCase()) {
+          case "host":
+            host = header;
+            break;
+          case "user-agent":
+            userAgent = header;
+            break;
+          case "accept":
+            accept = header;
+            break;
+          case "accept-language":
+            acceptLanguage = header;
+            break;
+          case "accept-encoding":
+            acceptEncoding = header;
+          case "content-type":
+            contentType = header;
+            break;
+          default:
+            break;
+        }
+      }
+
       String response = "";
       if (path.equals("/")) {
         response = httpOkResponse + CRLF;
         clientOutputStream.write(response.getBytes(StandardCharsets.UTF_8));
         System.out.println("server response :: 200 OK");
+
       } else if (path.startsWith("/echo/")) {
         String echo = path.replaceFirst("/echo/", "");
         response = httpOkResponse + contentText + contentLength + echo.length() + CRLF + CRLF + echo;
         clientOutputStream.write(response.getBytes(StandardCharsets.UTF_8));
         System.out.println("server response :: 200 OK");
+
+      } else if (path.equals("/user-agent")) {
+        response = httpOkResponse + contentText + contentLength + userAgent.length() + CRLF + CRLF + userAgent;
+        clientOutputStream.write(response.getBytes(StandardCharsets.UTF_8));
+        System.out.println("server response :: 200 OK");
+        
       } else {
         response = http404Response + CRLF;
         clientOutputStream.write(response.getBytes(StandardCharsets.UTF_8));
