@@ -10,8 +10,10 @@ public class Main {
   public static void main(String[] args) {
 
     final String CRLF = "\r\n";
-    String httpOkResponse = "HTTP/1.1 200 OK" + CRLF + CRLF;
-    String http404Response = "HTTP/1.1 404 Not Found" + CRLF + CRLF;
+    final String httpOkResponse = "HTTP/1.1 200 OK" + CRLF;
+    final String http404Response = "HTTP/1.1 404 Not Found" + CRLF;
+    final String contentText = "Content-Type: text/plain";
+    String contentLength = "Content-Length: ";
 
     // You can use print statements as follows for debugging, they'll be visible when running tests.
     System.out.println("Logs from your program will appear here!");
@@ -41,12 +43,19 @@ public class Main {
       System.out.println("firstLine :: " + method + " " + path + " " + version);
       System.out.println("client requesting connection to resource :: " + path);
 
-      switch (path) {
-        case "/":
-          clientOutputStream.write(httpOkResponse.getBytes(StandardCharsets.UTF_8));
-          break;
-        default:
-          clientOutputStream.write(http404Response.getBytes(StandardCharsets.UTF_8));
+      String response = "";
+      if (path.equals("/")) {
+        response = httpOkResponse + CRLF;
+        clientOutputStream.write(response.getBytes(StandardCharsets.UTF_8));
+        System.out.println("server response :: 200 OK");
+      } else if (path.startsWith("/echo/")) {
+        String echo = path.replaceFirst("/echo/", "");
+        response = httpOkResponse + CRLF + contentText + CRLF + contentLength + echo.length() + CRLF + CRLF + echo;
+        clientOutputStream.write(response.getBytes(StandardCharsets.UTF_8));
+        System.out.println("server response :: 200 OK");
+      } else {
+        clientOutputStream.write(http404Response.getBytes(StandardCharsets.UTF_8));
+        System.out.println("server response :: 404 Not Found");
       }
 
       clientOutputStream.flush();
