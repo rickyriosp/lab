@@ -140,16 +140,16 @@ public class ClientHandler extends Thread {
             } else if (path.startsWith("/echo/")) {
                 // Echo path response
                 responseBody = path.replaceFirst("/echo/", "");
+                contentLengthStr += responseBody.length() + CRLF;
 
                 byte[] compressed = null;
                 if (contentEncodingStr.contains("gzip")) {
                     compressed = GzipUtil.compress(responseBody, StandardCharsets.UTF_8.toString());
+                    contentLengthStr = "Content-Length: " + compressed.length + CRLF;
                 }
                 //String testCompression = GzipUtil.decompress(compressed, StandardCharsets.UTF_8.toString());
 
-                contentLengthStr += compressed.length + CRLF;
                 response = httpOkResponse + contentText + contentLengthStr + contentEncodingStr + CRLF;
-
                 ByteBuffer byteBuffer = ByteBuffer.allocate(response.length() + compressed.length);
                 byteBuffer.put(response.getBytes());
                 byteBuffer.put(compressed);
