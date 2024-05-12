@@ -27,6 +27,7 @@ public class ClientHandler extends Thread {
     String contentType = "";
     String contentLength = "";
     String contentEncoding = "";
+    String acceptEncodingStr = "Accept-Encoding: ";
     String contentTypeStr = "Content-Type: ";
     String contentLengthStr = "Content-Length: ";
     final String contentText = "Content-Type: text/plain" + CRLF;
@@ -125,15 +126,22 @@ public class ClientHandler extends Thread {
 
             } else if (path.startsWith("/echo/")) {
                 // Echo path response
+                if (Encodings.getByName(acceptEncoding) != null) {
+                    acceptEncodingStr += acceptEncoding + CRLF;
+                } else {
+                    acceptEncodingStr = "";
+                }
                 responseBody = path.replaceFirst("/echo/", "");
-                response = httpOkResponse + contentText + contentLengthStr + responseBody.length() + CRLF + CRLF + responseBody;
+                contentLengthStr += responseBody.length() + CRLF;
+                response = httpOkResponse + contentText + contentLengthStr + acceptEncodingStr + responseBody;
                 outputStream.write(response.getBytes(StandardCharsets.UTF_8));
                 System.out.println("server response :: 200 OK");
 
             } else if (path.equals("/user-agent")) {
                 // User Agent path response
                 responseBody = userAgent;
-                response = httpOkResponse + contentText + contentLengthStr + responseBody.length() + CRLF + CRLF + responseBody;
+                contentLengthStr += responseBody.length() + CRLF;
+                response = httpOkResponse + contentText + contentLengthStr + CRLF + responseBody;
                 outputStream.write(response.getBytes(StandardCharsets.UTF_8));
                 System.out.println("server response :: 200 OK");
 
@@ -149,7 +157,8 @@ public class ClientHandler extends Thread {
                         } catch (IOException e) {
                             System.out.println("[ERROR]: an error occurred trying to access the file: " + file.toURI());
                         }
-                        response = httpOkResponse + contentOctet + contentLengthStr + responseBody.length() + CRLF + CRLF + responseBody;
+                        contentLengthStr += responseBody.length() + CRLF;
+                        response = httpOkResponse + contentOctet + contentLengthStr + CRLF + responseBody;
                         outputStream.write(response.getBytes(StandardCharsets.UTF_8));
                         System.out.println("server response :: 200 OK");
                     } else {
