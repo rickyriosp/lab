@@ -118,6 +118,16 @@ public class ClientHandler extends Thread {
 
             String response = "";
             String responseBody = "";
+
+            // Select the first valid encoding, otherwise do not send content encoding in response
+            for (String encoding : acceptEncoding.split(",")) {
+                if (Encodings.getByName(encoding) != null) {
+                    contentEncodingStr += encoding + CRLF;
+                    break;
+                }
+            }
+            contentEncodingStr = contentEncodingStr.endsWith(CRLF) ? contentEncodingStr : "";
+
             if (path.equals("/")) {
                 // Root path response
                 response = httpOkResponse + CRLF;
@@ -126,11 +136,6 @@ public class ClientHandler extends Thread {
 
             } else if (path.startsWith("/echo/")) {
                 // Echo path response
-                if (Encodings.getByName(acceptEncoding) != null) {
-                    contentEncodingStr += acceptEncoding + CRLF;
-                } else {
-                    contentEncodingStr = "";
-                }
                 responseBody = path.replaceFirst("/echo/", "");
                 contentLengthStr += responseBody.length() + CRLF;
                 response = httpOkResponse + contentText + contentLengthStr + contentEncodingStr + CRLF + responseBody;
