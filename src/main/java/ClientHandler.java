@@ -3,7 +3,6 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class ClientHandler extends Thread {
@@ -56,29 +55,27 @@ public class ClientHandler extends Thread {
 
             System.out.println("Incoming Request:\n" + input.toString());
 
-            StringTokenizer inToken = new StringTokenizer(input.toString());
+            StringTokenizer inToken = new StringTokenizer(input.toString(), CRLF);
             String start = inToken.nextToken(CRLF);
             String method = start.split(" ")[0];
             String path = start.split(" ")[1];
             String version = start.split(" ")[2];
 
-            System.out.println("firstLine :: " + method + " " + path + " " + version);
+            //System.out.println("firstLine :: " + method + " " + path + " " + version);
             System.out.println("client requesting connection to resource :: " + path);
 
-            // Body
-            String contentBody = "";
+            String[] headersAndBody = inToken.nextToken("").split(CRLF+ CRLF);
+            String headers = headersAndBody[0];
+            StringTokenizer headersToken = new StringTokenizer(headers, CRLF);
 
             // Parse headers
-            while (inToken.hasMoreTokens()) {
-                String header = inToken.nextToken(CRLF);
+            while (headersToken.hasMoreTokens()) {
+                String header = headersToken.nextToken(CRLF);
                 if (header.isBlank() || header.isEmpty()) break;
 
-                String headerName = "";
-                String headerValue = "";
-                if (header.split(":").length > 1) {
-                    headerName = header.split(":")[0].trim();
-                    headerValue = header.split(":")[1].trim();
-                }
+                String headerName = header.split(":")[0].trim();
+                String headerValue = header.split(":")[1].trim();
+
                 switch (headerName.toLowerCase()) {
                     case "host":
                         host = headerValue;
@@ -110,10 +107,13 @@ public class ClientHandler extends Thread {
                         connection = headerValue;
                         break;
                     default:
-                        contentBody = header;
                         break;
                 }
             }
+
+            // Body
+            String contentBody = headersAndBody.length > 1 ? headersAndBody[1] : "";
+
 
             String response = "";
             String responseBody = "";
