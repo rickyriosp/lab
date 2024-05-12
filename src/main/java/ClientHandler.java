@@ -27,7 +27,7 @@ public class ClientHandler extends Thread {
     String contentType = "";
     String contentLength = "";
     String contentEncoding = "";
-    String contentEncodingStr = "Accept-Encoding: ";
+    String contentEncodingStr = "Content-Encoding: ";
     String contentTypeStr = "Content-Type: ";
     String contentLengthStr = "Content-Length: ";
     final String contentText = "Content-Type: text/plain" + CRLF;
