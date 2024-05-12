@@ -10,8 +10,8 @@ public class Main {
   public static void main(String[] args) {
 
     final String CRLF = "\r\n";
-    String httpOkResponse = "HTTP/1.1 200 OK" + CRLF;
-    String http404Response = "HTTP/1.1 404 Not Found" + CRLF;
+    String httpOkResponse = "HTTP/1.1 200 OK" + CRLF + CRLF;
+    String http404Response = "HTTP/1.1 404 Not Found" + CRLF + CRLF;
 
     // You can use print statements as follows for debugging, they'll be visible when running tests.
     System.out.println("Logs from your program will appear here!");
