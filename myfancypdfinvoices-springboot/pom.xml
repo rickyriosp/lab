@@ -60,6 +60,18 @@
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-xml</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>com.riosr</groupId>
+			<artifactId>rickyrios-spring-boot-starter</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.vibur</groupId>
+			<artifactId>vibur-dbcp</artifactId>
+			<version>25.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>
