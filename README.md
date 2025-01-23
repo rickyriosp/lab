@@ -96,6 +96,9 @@ mode : candle
 [epd2in13bv3]
 mode : line
 
+[epd2in13v4]
+mode : candle
+
 [epd2in7]
 mode : candle
 
