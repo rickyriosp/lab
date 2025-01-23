@@ -22,6 +22,7 @@ Bitcoin (or any other currency) stock price for your RPi Zero
   * epd2in13v2
   * epd2in13v3
   * epd2in13bv3
+  * epd2in13v4
   * epd2in7
   * epd3in7
 * inkyWhat (Red, Black, White)
