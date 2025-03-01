@@ -1,5 +1,0 @@
-com\riosr\ApplicationLauncher.class
-com\riosr\context\Application.class
-com\riosr\web\MyBankServlet.class
-com\riosr\model\Transaction.class
-com\riosr\service\TransactionService.class

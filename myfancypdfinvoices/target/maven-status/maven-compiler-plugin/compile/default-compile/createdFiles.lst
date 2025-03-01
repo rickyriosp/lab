@@ -1,4 +1,0 @@
-com\riosr\ApplicationLauncher.class
-com\riosr\web\MyFancyPdfInvoicesServlet.class
-com\riosr\service\InvoiceService.class
-com\riosr\model\Invoice.class
