@@ -1,0 +1,23 @@
+{
+    "name": "express-weberserver",
+    "version": "1.0.0",
+    "description": "",
+    "main": "",
+    "scripts": {
+        "build:ts": "tsc",
+        "docker:build": "docker build -t rickyrios/poc-webserver .",
+        "docker:run": "docker run -p 8080:8080 -e SERVER_PORT=8080 -e API_BASE=https://6foxfnnzki.execute-api.us-east-1.amazonaws.com/ -d rickyrios/poc-webserver"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "axios": "^1.7.9",
+        "ejs": "^3.1.10",
+        "express": "^4.21.2"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.0",
+        "@types/node": "^22.10.2",
+        "typescript": "^5.7.2"
+    }
+}

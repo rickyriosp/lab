@@ -1,0 +1,71 @@
+Scrum Guide scrumguides.org - ref material for test
+A lightweight framework that helps people, teams, and organizations 
+generate value through adaptive solutions for complex problems.
+
+
+Scrum is about delivering value to the end User.
+   Customer - the one who pays for the product
+   Users - people who consume the product
+
+
+
+Core Elements
+3 Accountabilities (roles): 
+  developer, 
+  product owner, 
+  scrum master
+5 Events: 
+  sprint, 
+  sprint planning, 
+  daily scrum, 
+  sprint review, 
+  sprint retrospective
+3 Artifacts with 1 commitment: 
+  product backlog - product goal 
+  sprint backlog - sprint goal
+  increment - definition of done
+
+
+Core elements are supported by
+3 Pillars of Empiricism:
+  Transparency - sharing updated information to relevant people
+  Inspection - frequently checking what is happening
+  Adaptation - making adjustments to bring the product development back on track
+
+5 Values CCFOR:
+  Courage, Commitment, Focus, Openness and Respect
+
+
+
+Agile Manifesto - History
+1986 - Harvard Business Review Publication - New Product Development Game - SCRUM term was first introduced
+1995 - SCRUM Development Process was first presented - Ken and Jef
+1996 - Extreme Programming - Kent, Ward C, Ron Jeffries
+2001 - Agile Manifesto for Software Dev. was published by 17 people
+
+
+Agile for SW Dev: Culture + Mindset + Frameworks and methods
+
+Agile ways of working primarily focuses on:
+  - Faster and frequent deliveries
+  - Incremental deliveries
+  - Ability to manage changes (being flexible)
+  - Faster feedback cycles
+
+
+
+Scrum Team size is typically 10 or fewer people
+
+Sprint is a measure of time, up to 1 month
+Sprint Planning should be max 8 hours for 1 month sprints
+Daily Scrum is a 15 minute event
+Sprint Review should be less than 4 hours
+Sprint Retrospective should be less than 3 hours
+
+
+
+
+
+
+
+
