@@ -26,7 +26,7 @@ public class CustomerController {
     private final CustomerService customerService;
 
     @GetMapping
-    public List<CustomerDTO> getAllCustomers() {
+    public List<CustomerDTO> listCustomers() {
         return customerService.getAllCustomers();
     }
 
@@ -50,12 +50,12 @@ public class CustomerController {
     }
 
     @PutMapping(RequestPaths.CUSTOMERS_PATH_ID)
-    public ResponseEntity updateCustomerById(@PathVariable UUID customerId, @RequestBody CustomerDTO customer) {
+    public ResponseEntity<CustomerDTO> updateCustomerById(@PathVariable UUID customerId, @RequestBody CustomerDTO customer) {
         log.debug("Update customer - in controller");
 
         customerService.updateCustomerById(customerId, customer);
 
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping(RequestPaths.CUSTOMERS_PATH_ID)
