@@ -79,7 +79,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void updateCustomerById(UUID customerId, CustomerDTO customer) {
+    public Optional<CustomerDTO> updateCustomerById(UUID customerId, CustomerDTO customer) {
         log.debug("Update customer - in service. Customer Id: {}", customer.getId());
 
         CustomerDTO existingCustomer = this.customers.get(customerId);
@@ -87,17 +87,20 @@ public class CustomerServiceImpl implements CustomerService {
         existingCustomer.setUpdatedDate(LocalDateTime.now());
 
         this.customers.put(customerId, existingCustomer);
+        return Optional.of(existingCustomer);
     }
 
     @Override
-    public void deleteCustomerById(UUID customerId) {
+    public boolean deleteCustomerById(UUID customerId) {
         log.debug("Delete customer - in service. Customer Id: {}", customerId);
 
         this.customers.remove(customerId);
+
+        return true;
     }
 
     @Override
-    public void patchCustomerById(UUID customerId, CustomerDTO customer) {
+    public Optional<CustomerDTO> patchCustomerById(UUID customerId, CustomerDTO customer) {
         log.debug("Patch customer - in service. Customer Id: {}", customer.getId());
 
         CustomerDTO existingCustomer = this.customers.get(customerId);
@@ -108,5 +111,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         existingCustomer.setUpdatedDate(LocalDateTime.now());
         this.customers.put(customerId, existingCustomer);
+
+        return Optional.of(existingCustomer);
     }
 }

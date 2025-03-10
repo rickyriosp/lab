@@ -53,7 +53,9 @@ public class BeerController {
     public ResponseEntity<BeerDTO> updateBeerById(@PathVariable UUID beerId, @RequestBody BeerDTO beer) {
         log.debug("Update beer by - in controller");
 
-        beerService.updateBeerById(beerId, beer);
+        if (beerService.updateBeerById(beerId, beer).isEmpty()) {
+            throw new NotFoundException();
+        };
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -62,7 +64,9 @@ public class BeerController {
     public ResponseEntity<BeerDTO> deleteBeerById(@PathVariable UUID beerId) {
         log.debug("Delete beer by - in controller");
 
-        beerService.deleteBeerById(beerId);
+        if (!beerService.deleteBeerById(beerId)) {
+            throw new NotFoundException();
+        }
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -71,7 +75,9 @@ public class BeerController {
     public ResponseEntity<BeerDTO> patchBeerById(@PathVariable UUID beerId, @RequestBody BeerDTO beer) {
         log.debug("Patch beer by - in controller");
 
-        beerService.patchBeerById(beerId, beer);
+        if (beerService.patchBeerById(beerId, beer).isEmpty()) {
+            throw new NotFoundException();
+        }
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

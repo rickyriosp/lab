@@ -53,7 +53,9 @@ public class CustomerController {
     public ResponseEntity<CustomerDTO> updateCustomerById(@PathVariable UUID customerId, @RequestBody CustomerDTO customer) {
         log.debug("Update customer - in controller");
 
-        customerService.updateCustomerById(customerId, customer);
+        if (customerService.updateCustomerById(customerId, customer).isEmpty()) {
+            throw new NotFoundException();
+        };
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -62,7 +64,9 @@ public class CustomerController {
     public ResponseEntity<CustomerDTO> deleteCustomerById(@PathVariable UUID customerId) {
         log.debug("Delete customer - in controller");
 
-        customerService.deleteCustomerById(customerId);
+        if (!customerService.deleteCustomerById(customerId)) {
+            throw new NotFoundException();
+        }
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -71,7 +75,9 @@ public class CustomerController {
     public ResponseEntity<CustomerDTO> patchCustomerById(@PathVariable UUID customerId, @RequestBody CustomerDTO customer) {
         log.debug("Patch customer - in controller");
 
-        customerService.patchCustomerById(customerId, customer);
+        if (customerService.patchCustomerById(customerId, customer).isEmpty()) {
+            throw new NotFoundException();
+        }
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
