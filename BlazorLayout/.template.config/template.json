@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Ricky Rios",
+  "classifications": [
+    "Web",
+    "Blazor",
+    "WebAssembly"
+  ],
+  "identity": "CoderFoundry.BlazorWasmLayout",
+  "name": "Blazor WebAssembly With Layout",
+  "shortName": "BlazorWasmLayout",
+  "sourceName": "BlazorLayout",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "preferNameDirectory": true,
+  "sources": [
+    {
+      "exclude": [
+        ".git/**",
+        ".github/**",
+        ".gitignore",
+        ".gitattributes",
+        ".template.config/**",
+        ".vs/**",
+        "**/bin/**",
+        "**/obj/**",
+        "README.md"
+      ]
+    }
+  ]
+}
