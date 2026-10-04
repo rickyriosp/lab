@@ -151,6 +151,8 @@ http-client.private.env.json
 
 
 ### Python
+=======
+>>>>>>> old/main
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -248,7 +250,11 @@ ipython_config.py
 #   install all needed dependencies.
 # Pipfile.lock
 
+<<<<<<< HEAD
 # uv
+=======
+# UV
+>>>>>>> old/main
 #   Similar to Pipfile.lock, it is generally recommended to include uv.lock in version control.
 #   This is especially recommended for binary packages to ensure reproducibility, and is more
 #   commonly ignored for libraries.
@@ -319,7 +325,11 @@ venv.bak/
 # Rope project settings
 .ropeproject
 
+<<<<<<< HEAD
 # mkdocs/Zensical documentation
+=======
+# mkdocs documentation
+>>>>>>> old/main
 /site
 
 # mypy
@@ -350,10 +360,17 @@ cython_debug/
 .abstra/
 
 # Visual Studio Code
+<<<<<<< HEAD
 #   Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore that
 #   can be found at https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
 #   and can be added to the global gitignore or merged into this file. However, if you prefer, you
 #   could uncomment the following to ignore the entire vscode folder
+=======
+#   Visual Studio Code specific template is maintained in a separate VisualStudioCode.gitignore 
+#   that can be found at https://github.com/github/gitignore/blob/main/Global/VisualStudioCode.gitignore
+#   and can be added to the global gitignore or merged into this file. However, if you prefer, 
+#   you could uncomment the following to ignore the entire vscode folder
+>>>>>>> old/main
 # .vscode/
 # Temporary file for partial code execution
 tempCodeRunnerFile.py
@@ -371,6 +388,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+<<<<<<< HEAD
 
 # gitignore template for Jupyter Notebooks
 # website: http://jupyter.org/
