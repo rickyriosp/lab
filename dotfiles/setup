@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Description: Link dotfiles to home directory
+
+ln -sf $(pwd)/bashrc ~/.bashrc
+ln -sf $(pwd)/vimrc ~/.vimrc
+ln -sf $(pwd)/tmux.conf ~/.tmux.conf
+
+echo "Dotfiles linked!"
