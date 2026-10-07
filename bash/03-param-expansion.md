@@ -169,7 +169,7 @@ echo "${text// /}"
 echo "${PATH//:/$'\n'}"
 ```
 
-> If you’re reaching for ```sed``` to manipulate a variable, stop. There’s probably a parameter expansion for that.”
+> "If you’re reaching for ```sed``` to manipulate a variable, stop. There’s probably a parameter expansion for that."
 
 ---
 
