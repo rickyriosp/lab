@@ -1,5 +1,9 @@
 # 3: Parameter Expansion
 
+**Goal:** Master parameter expansion - the skill that separates bash professionals from beginners.
+
+Learn to manipulate strings without spawning external processes.
+
 ## 3.1 Why parameter expansion?
 
 Usual external tools we use:

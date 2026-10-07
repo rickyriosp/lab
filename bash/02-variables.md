@@ -1,5 +1,7 @@
 # 2: Variables and Quoting
 
+**Goal:** Learn how to store and manipulate data in bash scripts safely. Master quoting rules to avoid security vulnerabilities - this is where most bash bugs come from.
+
 ## 2.1 Variables
 
 ### Creating Variables

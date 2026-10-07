@@ -1,5 +1,7 @@
 # 1: First Script
 
+**Goal:** Go from zero to running bash scripts with security awareness.
+
 ## 1.1 What is Bash?
 
 ```bash
