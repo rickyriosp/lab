@@ -1,8 +1,6 @@
-#!/bin/bash
 
-# Description: Bash examples with variables
-
-### Creating Variables
+Creating Variables
+```bash
 # Rule: no spaces around the = sign
 # WRONG - bash thinks "name" is a command
 name = "DevOps"
@@ -10,7 +8,7 @@ name = "DevOps"
 # CORRECT
 name="DevOps"
 echo $name
-
+```
 
 ### Accessing Variables
 name="DevOps"
